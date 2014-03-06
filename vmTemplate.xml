@@ -1,0 +1,25 @@
+ NAME   = vm-example 
+           CPU    = 0.5  
+           MEMORY = 128  
+           OS     = [ 
+              boot = hd, 
+              ROOT = hda 
+              ] 
+           DISK   = [
+  	      type = disk,
+ 	      clone=no,
+  	      size =4096,
+  	      format = ext3,
+              source=  "/home/oneadmin/Desktop/vm/disk.0", 
+              target   = hda,
+	      readonly = "no" 
+              ]        
+           
+           NIC = [ network = "VM2_net" ]
+           
+           GRAPHICS = [ 
+             TYPE    = "ranged",              
+             LISTEN  = "0.0.0.0",
+             PORT    = "5901",
+             PASSWD  = "123456"    
+           ] 

@@ -1,0 +1,1 @@
+java.io.FileNotFoundException: /var/lib/one/Documents/InterCloudCommunication/src/utils/config.properties (No such file or directory)
