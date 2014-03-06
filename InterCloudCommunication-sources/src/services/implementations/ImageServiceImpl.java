@@ -64,9 +64,9 @@ public class ImageServiceImpl implements IImageService {
     }
 
     @Override
-    public OneResponse allocate(Client client, String description) {
-         Image image = new Image(256,client);
-        return image.allocate(client, description);
+    public OneResponse allocate(Client client, String description,int datastoreId) {
+         
+        return Image.allocate(client, description,datastoreId);
         
         
     }

@@ -20,7 +20,7 @@ public class Main {
         VirtualMachinePool virtualMachinePool
                 = new VirtualMachinePool(OpenNebulaClient.getInstance());
         virtualMachinePool.info();
-        VirtualMachine virtualMachine = virtualMachinePool.getById(410);
+        VirtualMachine virtualMachine = virtualMachinePool.getById(412);
         String imagePath = "/var/lib/one/testImages/";
         Puppeteer puppeteer = new Puppeteer(
                 "oneadmin",
@@ -33,19 +33,16 @@ public class Main {
         IInterCloudMigrationService iicms
                 = new InterCloudMigrationServiceImpl();
 
-        //iicms.migrateToDatacenter(virtualMachine, dataCenter);
+       // iicms.migrateToDatacenter(virtualMachine, dataCenter);
         
         IImageService imageService = new ImageServiceImpl();
         Image image = new Image();
         image.setName("rox");
-        image.setImagePath("/var/lib/one/datastores/108/2c662c7fa1588ce6f95627dcd7e87707");
+        image.setImagePath("/var/lib/one/ImagineTTYBuna");
         image.setIsPublic(true);
         image.setDescription("this is a test");
-        org.opennebula.client.image.Image i =imageService.getAllImages().get(0);
-        i.info();
-        i.getName();
         System.out.println(image.toString());
-        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString());
+        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),108);
         
         if(r.isError()){
             System.out.println("An error has occured " + r.getErrorMessage());

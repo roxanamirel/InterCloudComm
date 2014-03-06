@@ -7,8 +7,7 @@ package services.implementations;
 
 
 import services.interfaces.IServerService;
-import dclink_entities.HostData;
-import dclink_if.DCLink;
+
 
 import exceptions.ServiceCenterAccessException;
 import java.io.BufferedReader;
@@ -688,16 +687,16 @@ public class ServerServiceImpl implements IServerService {
     //hardcodat
     @Override
     public List<PhysicalHost> getAllHosts() {
-        DCLink dCLink = new DCLink();
-        List<PhysicalHost> hosts = new ArrayList<PhysicalHost>();
-        for (int i = 0; i < dCLink.getHosts().size(); i++) {
-            HostData host = dCLink.getHosts().get(i);
-            hosts.add(new PhysicalHost());
-            hosts.get(i).setHostname(host.getName());
-            hosts.get(i).setId(Integer.parseInt(host.getId()));
-
-        }
-        return hosts;
+//        DCLink dCLink = new DCLink();
+//        List<PhysicalHost> hosts = new ArrayList<PhysicalHost>();
+//        for (int i = 0; i < dCLink.getHosts().size(); i++) {
+//            HostData host = dCLink.getHosts().get(i);
+//            hosts.add(new PhysicalHost());
+//            hosts.get(i).setHostname(host.getName());
+//            hosts.get(i).setId(Integer.parseInt(host.getId()));
+//
+//        }
+       return null;
     }
 
     @Override

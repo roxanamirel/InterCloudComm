@@ -85,7 +85,8 @@ public class VMServiceImpl implements IVMService {
         }
 
         VirtualMachinePool pool = new VirtualMachinePool(client);
-        pool.processInfo(VirtualMachinePool.info(client, -2));
+        
+        //pool.processInfo(VirtualMachinePool.info(client, -2));
         Iterator<VirtualMachine> hostIterator = pool.iterator();
         try {
             while (hostIterator.hasNext()) {

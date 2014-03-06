@@ -24,5 +24,5 @@ public interface IImageService {
     
     public boolean contains(String imageName);
     
-    public OneResponse allocate(Client client,String description);
+    public OneResponse allocate(Client client,String description,int datastoreId);
 }
