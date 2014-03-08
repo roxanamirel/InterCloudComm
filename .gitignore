@@ -2,3 +2,5 @@
 nbproject/*
 build/*
 /dist/
+*GeneralConfigurationManager*
+

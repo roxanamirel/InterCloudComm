@@ -1,0 +1,9 @@
+*.class
+nbproject/*
+build/*
+<<<<<<< HEAD
+/dist/
+=======
+*.class
+*GeneralConfigurationManager*
+>>>>>>> 645678274a3c78a282f5ecef5143cce1a11f6697
