@@ -7,6 +7,8 @@
 package services.interfaces;
 
 import models.DataCenter;
+import models.Image;
+import org.opennebula.client.OneResponse;
 import org.opennebula.client.vm.VirtualMachine;
 
 /**
@@ -17,4 +19,5 @@ public interface IInterCloudMigrationService {
     
     void migrateToDatacenter(VirtualMachine virtualMachine, DataCenter dataCenter);
     
+    OneResponse allocateReceivedImage(Image image,int datastoreId);
 }

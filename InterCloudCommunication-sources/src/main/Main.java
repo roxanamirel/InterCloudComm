@@ -20,8 +20,8 @@ public class Main {
         VirtualMachinePool virtualMachinePool
                 = new VirtualMachinePool(OpenNebulaClient.getInstance());
         virtualMachinePool.info();
-        VirtualMachine virtualMachine = virtualMachinePool.getById(412);
-        String imagePath = "/var/lib/one/testImages/";
+        VirtualMachine virtualMachine = virtualMachinePool.getById(424);
+        String imagePath = "/var/lib/one/migratedImages/";
         Puppeteer puppeteer = new Puppeteer(
                 "oneadmin",
                 "password",
@@ -33,22 +33,22 @@ public class Main {
         IInterCloudMigrationService iicms
                 = new InterCloudMigrationServiceImpl();
 
-       // iicms.migrateToDatacenter(virtualMachine, dataCenter);
+        iicms.migrateToDatacenter(virtualMachine, dataCenter);
         
-        IImageService imageService = new ImageServiceImpl();
-        Image image = new Image();
-        image.setName("rox");
-        image.setImagePath("/var/lib/one/ImagineTTYBuna");
-        image.setIsPublic(true);
-        image.setDescription("this is a test");
-        System.out.println(image.toString());
-        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),108);
-        
-        if(r.isError()){
-            System.out.println("An error has occured " + r.getErrorMessage());
-        }
-        else 
-            System.out.print(r.getMessage());
+//        IImageService imageService = new ImageServiceImpl();
+//        Image image = new Image();
+//        image.setName("roxiiii_dada");
+//        image.setImagePath("/var/lib/one/images/ImagineTTYBuna");
+//        image.setIsPublic(true);
+//        image.setDescription("this is a test");
+//        System.out.println(image.toString());
+//        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),108);
+//        
+//        if(r.isError()){
+//            System.out.println("An error has occured " + r.getErrorMessage());
+//        }
+//        else 
+//            System.out.print(r.getMessage());
 
     }
 }

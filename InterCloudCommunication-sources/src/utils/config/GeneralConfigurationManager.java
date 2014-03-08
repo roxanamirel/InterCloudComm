@@ -25,11 +25,12 @@ import utils.logging.ApplicationLoggingSystem;
 public class GeneralConfigurationManager {
 
     private static Properties generalProperties;
+    private static final String CONFIG_PATH="/var/lib/one/Documents/intercloudcomm17feb/InterCloudCommunication-sources/src/utils/config/config.properties";
 
     static {
         generalProperties = new Properties();
         try {
-            generalProperties.load(new FileInputStream("/var/lib/one/Documents/intercloudcomm17feb/InterCloudCommunication-sources/src/utils/config/config.properties"));
+            generalProperties.load(new FileInputStream(CONFIG_PATH));
         } catch (IOException e) {
 //            ApplicationLoggingSystem.getInstance().LogInfo(e.toString());
             System.exit(1);

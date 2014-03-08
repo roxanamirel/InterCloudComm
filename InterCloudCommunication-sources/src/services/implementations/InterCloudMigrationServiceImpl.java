@@ -5,6 +5,7 @@
  */
 package services.implementations;
 
+import client.OpenNebulaClient;
 import helper.template.TemplateHelper;
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +21,9 @@ import org.opennebula.client.vm.VirtualMachine;
 import services.interfaces.IInterCloudMigrationService;
 import services.interfaces.IVMService;
 import models.Disk;
+import models.Image;
 import models.TemplateModel;
+import services.interfaces.IImageService;
 import tcp.TCPClient;
 import utils.parsers.OneResponseParser;
 
@@ -29,6 +32,15 @@ import utils.parsers.OneResponseParser;
  * @author oneadmin
  */
 public class InterCloudMigrationServiceImpl implements IInterCloudMigrationService {
+
+    private IImageService imageService;
+
+    public InterCloudMigrationServiceImpl(IImageService imageService) {
+        this.imageService = imageService;
+    }
+
+    public InterCloudMigrationServiceImpl() {
+    }
 
     @Override
     public void migrateToDatacenter(VirtualMachine virtualMachine, DataCenter dataCenter) {
@@ -39,17 +51,17 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
 
         List<String> imageNames = createImagesFromDisks(tm.getDisks(), virtualMachine);
         List<String> imagePaths = getImagesPaths(imageNames);
-        
+
         destroyVirtualMachine(virtualMachine);
         sendImagesWithSSH(imagePaths, imageNames, dataCenter);
-        
+
         remoteRestore(dataCenter, tm, imageNames);
     }
 
     private List<String> getImagesPaths(List<String> imageNames) {
         List<String> imagesPaths = new ArrayList<>();
         for (String name : imageNames) {
-            String imagePath = OneResponseParser.getImagePath(name);            
+            String imagePath = OneResponseParser.getImagePath(name);
             imagesPaths.add(imagePath);
             System.out.println(imagePath);
         }
@@ -175,6 +187,14 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
     }
 
     private void remoteRestore(DataCenter dataCenter, TemplateModel tm, List<String> imageNames) {
-        new TCPClient().restore(dataCenter, tm, imageNames);        
+        new TCPClient().restore(dataCenter, tm, imageNames);
+    }
+
+    @Override
+    public OneResponse allocateReceivedImage(Image image, int datastoreId) {
+
+        return imageService.allocate(OpenNebulaClient.getInstance(),
+                image.toString(), datastoreId);
+
     }
 }
