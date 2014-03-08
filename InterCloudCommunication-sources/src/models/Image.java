@@ -86,7 +86,7 @@ public class Image implements Serializable {
                 + "PUBLIC = " + p +"\n"
                 + "PERSISTENT = " + "NO" + "\n"
                 + "TYPE = " + "OS"+ "\n" 
-                + "DATASTORE = " + 108 + "\n"
+                + "DATASTORE = " + 102 + "\n"
                 + "DESCRIPTION = " + '"'+ description+'"';
                
     }

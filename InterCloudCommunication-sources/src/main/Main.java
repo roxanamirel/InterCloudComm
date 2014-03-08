@@ -16,39 +16,40 @@ import services.interfaces.IInterCloudMigrationService;
 public class Main {
 
     public static void main(String[] args) {
-        System.out.println("main");
-        VirtualMachinePool virtualMachinePool
-                = new VirtualMachinePool(OpenNebulaClient.getInstance());
-        virtualMachinePool.info();
-        VirtualMachine virtualMachine = virtualMachinePool.getById(412);
-        String imagePath = "/var/lib/one/testImages/";
-        Puppeteer puppeteer = new Puppeteer(
-                "oneadmin",
-                "password",
-                imagePath,
-                "192.168.1.30",
-                6789);
-        DataCenter dataCenter = new DataCenter(puppeteer, null, 1);
-
-        IInterCloudMigrationService iicms
-                = new InterCloudMigrationServiceImpl();
-
-       // iicms.migrateToDatacenter(virtualMachine, dataCenter);
+//        System.out.println("main");
+//        VirtualMachinePool virtualMachinePool
+//                = new VirtualMachinePool(OpenNebulaClient.getInstance());
+//        virtualMachinePool.info();
+//        VirtualMachine virtualMachine = virtualMachinePool.getById(412);
+//        String imagePath = "/var/lib/one/testImages/";
+//        Puppeteer puppeteer = new Puppeteer(
+//                "oneadmin",
+//                "password",
+//                imagePath,
+//                "192.168.1.30",
+//                6789);
+//        DataCenter dataCenter = new DataCenter(puppeteer, null, 1);
+//
+//        IInterCloudMigrationService iicms
+//                = new InterCloudMigrationServiceImpl();
+//
+//        iicms.migrateToDatacenter(virtualMachine, dataCenter);
         
         IImageService imageService = new ImageServiceImpl();
         Image image = new Image();
-        image.setName("rox");
-        image.setImagePath("/var/lib/one/ImagineTTYBuna");
+        image.setName("roxipoxxxi");
+        image.setImagePath("/home/utcn/testImages/53e4dab1-ddf6-4117-9128-526e57ba6281");
         image.setIsPublic(true);
         image.setDescription("this is a test");
         System.out.println(image.toString());
-        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),108);
+        OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),102);
         
         if(r.isError()){
-            System.out.println("An error has occured " + r.getErrorMessage());
+            System.out.println("An errrror has occured " + r.getErrorMessage());
         }
         else 
             System.out.print(r.getMessage());
+
 
     }
 }
