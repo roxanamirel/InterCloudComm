@@ -7,23 +7,21 @@ package services.implementations;
 
 import client.OpenNebulaClient;
 import helper.template.TemplateHelper;
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import models.DataCenter;
-import org.opennebula.client.OneResponse;
-import org.opennebula.client.vm.VirtualMachine;
-import services.interfaces.IInterCloudMigrationService;
-import services.interfaces.IVMService;
 import models.Disk;
 import models.Image;
 import models.TemplateModel;
+import org.opennebula.client.OneResponse;
+import org.opennebula.client.vm.VirtualMachine;
 import services.interfaces.IImageService;
+import services.interfaces.IInterCloudMigrationService;
+import services.interfaces.IVMService;
 import tcp.TCPClient;
 import utils.parsers.OneResponseParser;
 
@@ -54,7 +52,7 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
 
         destroyVirtualMachine(virtualMachine);
         sendImagesWithSSH(imagePaths, imageNames, dataCenter);
-
+        
         remoteRestore(dataCenter, tm, imageNames);
     }
 
@@ -74,6 +72,8 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
             for (Disk disk : disks) {
                 String imageName = UUID.randomUUID().toString();
                 System.out.println("Saving image: " + imageName);
+                disk.getImage().setName(imageName);
+                disk.getImage().setIsPublic(true);
 
                 OneResponse saveDiskRespone = vm.savedisk(disk.getDiskID(), imageName);
                 if (saveDiskRespone.isError()) {

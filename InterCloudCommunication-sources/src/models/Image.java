@@ -50,7 +50,7 @@ public class Image implements Serializable {
         this.imagePath = imagePath;
     }
 
-    public boolean isIsPublic() {
+    public boolean isPublic() {
         return isPublic;
     }
 
