@@ -91,9 +91,7 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
     }
 
     private void destroyVirtualMachine(VirtualMachine virtualMachine) {
-        String command = "onevm shutdown --hard " + virtualMachine.getId();
-        System.out.println(command);
-        executeCommand(command);
+        virtualMachine.shutdown(true);
         virtualMachine.info();
         System.out.println("VM state is: " + virtualMachine.status());
 
@@ -149,27 +147,6 @@ public class InterCloudMigrationServiceImpl implements IInterCloudMigrationServi
 
         System.out.println("Images were sent to " + dataCenter.getPuppeteer().getImgPath());
         return output;
-    }
-
-    private String executeCommand(String command) {
-
-        StringBuilder output = new StringBuilder();
-
-        try {
-            Process p = Runtime.getRuntime().exec(command);
-            p.waitFor();
-            BufferedReader reader
-                    = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
-            String line = "";
-            while ((line = reader.readLine()) != null) {
-                output.append(line + "\n");
-            }
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return output.toString();
     }
 
     private void executeCommandWithPassword(String command) {
