@@ -2,5 +2,5 @@
 nbproject/*
 build/*
 /dist/
-*GeneralConfigurationManager*
+InterCloudCommunication-sources/src/utils/config/GeneralConfigurationManager.java
 
