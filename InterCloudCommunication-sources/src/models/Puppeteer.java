@@ -32,7 +32,7 @@ public class Puppeteer {
     public void setPort(int port) {
         this.port = port;
     }
-    
+
     public String getUsername() {
         return username;
     }
@@ -61,8 +61,11 @@ public class Puppeteer {
         this.datastoreImgPath = datastoreImgPath;
     }
 
+    public String getDatastoreImgPath() {
+        return datastoreImgPath;
+    }
+
     public String getImgPath() {
         return username + "@" + ip + ":" + datastoreImgPath;
     }
-
 }
