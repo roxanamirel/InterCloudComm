@@ -26,7 +26,7 @@ public class GeneralConfigurationManager {
 
     private static Properties generalProperties;
     private static final String CONFIG_PATH="/var/lib/one/Documents/intercloudcomm17feb/InterCloudCommunication-sources/src/utils/config/config.properties";
-
+    private static final String IMAGE_PATH_LOCATION = "/var/lib/one/migratedImages/";
     static {
         generalProperties = new Properties();
         try {
@@ -35,6 +35,10 @@ public class GeneralConfigurationManager {
 //            ApplicationLoggingSystem.getInstance().LogInfo(e.toString());
             System.exit(1);
         }
+    }
+    
+    public static String getIMAGE_PATH_LOCATION() {
+        return IMAGE_PATH_LOCATION;
     }
 
     public static boolean isFileBasedWorkloadGenerator() {

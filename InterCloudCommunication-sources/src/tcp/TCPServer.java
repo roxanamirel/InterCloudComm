@@ -30,7 +30,7 @@ import utils.config.GeneralConfigurationManager;
  *
  * @author oneadmin
  */
-public class TCPServer {
+public class TCPServer extends Thread {
 
     static String clientSentence;
     static String capitalizedSentence;
@@ -41,6 +41,13 @@ public class TCPServer {
 
         listen();
     }
+    
+    @Override
+        public void run() {
+            while (true) {
+                listen();
+            }
+        }
 
     public static void listen() {
         TemplateModel tm = null;
@@ -65,6 +72,7 @@ public class TCPServer {
                         ITemplateService templateService = new TemplateServiceImpl();
                         
                         List<OneResponse> oneResponses = imageService.allocateImages(tm);
+                        
                         templateService.allocateTemplate(tm, oneResponses);
 
                         

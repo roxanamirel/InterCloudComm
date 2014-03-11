@@ -9,7 +9,10 @@ import client.OpenNebulaClient;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import models.Disk;
+import models.ImageState;
 import models.TemplateModel;
 import org.opennebula.client.Client;
 import org.opennebula.client.OneResponse;
@@ -76,19 +79,32 @@ public class ImageServiceImpl implements IImageService {
     @Override
     public List<OneResponse> allocateImages(TemplateModel tm) {
         List<OneResponse> oneResponses = new ArrayList<>();
+        IImageService imageService = new ImageServiceImpl();
         for (Disk disk : tm.getDisks()) {
             models.Image image = disk.getImage();
             image.setDescription("this is a test");
             image.setImagePath(GeneralConfigurationManager.getIMAGE_PATH_LOCATION() + image.getName());
-            IImageService imageService = new ImageServiceImpl();
-            OneResponse r = imageService.allocate(OpenNebulaClient.getInstance(), image.toString(), 101);
-
+            OneResponse r = imageService.allocate(OpenNebulaClient.getInstance(), image.toString(), 108);
+            
             if (r.isError()) {
                 System.out.println("An error has occured " + r.getErrorMessage());
             } else {
                 System.out.print(r.getMessage());
             }
             oneResponses.add(r);
+        }
+        for(OneResponse oneResponse:oneResponses){
+            Image image = imageService.getImageById(oneResponse.getIntMessage());
+            image.info();
+            while(!image.stateString().equals(ImageState.READY.getValue())){
+                try {
+                    Thread.sleep(1000);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(ImageServiceImpl.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                image.info();
+            }
+            
         }
         return oneResponses;
     }

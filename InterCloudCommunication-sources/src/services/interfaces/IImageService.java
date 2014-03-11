@@ -28,4 +28,6 @@ public interface IImageService {
     public OneResponse allocate(Client client,String description,int datastoreId);
     
     public List<OneResponse> allocateImages(TemplateModel tm);
+    
+    
 }

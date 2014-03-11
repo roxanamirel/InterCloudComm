@@ -40,8 +40,15 @@ public class TemplateServiceImpl implements ITemplateService {
             System.out.println(
                     "Template created with ID = " 
                     + templateResponse.getIntMessage());
-            tp.getById(templateResponse.getIntMessage()).instantiate();
-            
+            tp.info();
+           OneResponse instResponse = tp.getById(templateResponse.getIntMessage()).instantiate();
+            if(instResponse.isError()){
+                System.out.println(instResponse.getErrorMessage());
+                
+            }
+            else{
+                System.out.println(instResponse.getMessage());
+            }
         }
     }
     
