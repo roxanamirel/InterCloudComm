@@ -59,6 +59,7 @@ public class TCPServer {
                     ObjectInputStream obj = new ObjectInputStream(is);
                     try {
                         tm = (TemplateModel) obj.readObject();
+                        System.out.println("\n" + tm.toString());
                         
                         IImageService imageService = new ImageServiceImpl();
                         ITemplateService templateService = new TemplateServiceImpl();
@@ -66,7 +67,7 @@ public class TCPServer {
                         List<OneResponse> oneResponses = imageService.allocateImages(tm);
                         templateService.allocateTemplate(tm, oneResponses);
 
-                        System.out.println(tm.toString());
+                        
                     } catch (ClassNotFoundException ex) {
                         Logger.getLogger(TCPServer.class.getName()).log(Level.SEVERE, null, ex);
                     }

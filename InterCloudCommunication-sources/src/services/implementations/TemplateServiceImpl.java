@@ -31,7 +31,18 @@ public class TemplateServiceImpl implements ITemplateService {
         }
         tm.getNic().setNetworkId(getFirstVirtualNetworkId());
         
-        Template.allocate(OpenNebulaClient.getInstance(), tm.toString());
+        OneResponse templateResponse =
+                Template.allocate(OpenNebulaClient.getInstance(), tm.toString());
+        
+        if (!templateResponse.isError())
+        {
+            TemplatePool tp = new TemplatePool(OpenNebulaClient.getInstance());
+            System.out.println(
+                    "Template created with ID = " 
+                    + templateResponse.getIntMessage());
+            tp.getById(templateResponse.getIntMessage()).instantiate();
+            
+        }
     }
     
     private int getFirstVirtualNetworkId() {
