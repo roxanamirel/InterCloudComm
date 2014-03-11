@@ -6,21 +6,24 @@
 package tcp;
 
 import client.OpenNebulaClient;
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import models.DataCenter;
 import models.Disk;
 import models.Image;
-import models.Puppeteer;
 import models.TemplateModel;
 import org.opennebula.client.OneResponse;
+import org.opennebula.client.template.Template;
+import org.opennebula.client.template.TemplatePool;
 import services.implementations.ImageServiceImpl;
-import services.implementations.InterCloudMigrationServiceImpl;
+import services.implementations.TemplateServiceImpl;
 import services.interfaces.IImageService;
-import services.interfaces.IInterCloudMigrationService;
+import services.interfaces.ITemplateService;
 import utils.config.GeneralConfigurationManager;
 
 /**
@@ -31,6 +34,8 @@ public class TCPServer {
 
     static String clientSentence;
     static String capitalizedSentence;
+
+    
 
     public static void main(String... args) {
 
@@ -54,20 +59,12 @@ public class TCPServer {
                     ObjectInputStream obj = new ObjectInputStream(is);
                     try {
                         tm = (TemplateModel) obj.readObject();
-                        for (Disk disk : tm.getDisks()) {
-                            Image image = disk.getImage();
-                            image.setDescription("this is a test");
-                            image.setImagePath(GeneralConfigurationManager.getIMAGE_PATH_LOCATION()+image.getName());
-                            IImageService imageService = new ImageServiceImpl(); 
-                            OneResponse r =imageService.allocate(OpenNebulaClient.getInstance(), image.toString(),108);
-                            
-                            if (r.isError()) {
-                                System.out.println("An error has occured " + r.getErrorMessage());
-                            } else {
-                                System.out.print(r.getMessage());
-                            }
-
-                        }
+                        
+                        IImageService imageService = new ImageServiceImpl();
+                        ITemplateService templateService = new TemplateServiceImpl();
+                        
+                        List<OneResponse> oneResponses = imageService.allocateImages(tm);
+                        templateService.allocateTemplate(tm, oneResponses);
 
                         System.out.println(tm.toString());
                     } catch (ClassNotFoundException ex) {

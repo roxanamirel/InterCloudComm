@@ -10,8 +10,8 @@ import java.io.Serializable;
  *
  * @author oneadmin
  */
-public class Network implements Serializable{
-    
+public class Network implements Serializable {
+
     private int networkId;
 
     public Network(int networkId) {
@@ -24,5 +24,5 @@ public class Network implements Serializable{
 
     public void setNetworkId(int networkId) {
         this.networkId = networkId;
-    }    
+    }
 }

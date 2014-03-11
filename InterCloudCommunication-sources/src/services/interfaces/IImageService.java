@@ -8,6 +8,7 @@ package services.interfaces;
 
 import client.OpenNebulaClient;
 import java.util.List;
+import models.TemplateModel;
 import org.opennebula.client.Client;
 import org.opennebula.client.OneResponse;
 import org.opennebula.client.image.Image;
@@ -25,4 +26,6 @@ public interface IImageService {
     public boolean contains(String imageName);
     
     public OneResponse allocate(Client client,String description,int datastoreId);
+    
+    public List<OneResponse> allocateImages(TemplateModel tm);
 }
