@@ -24,7 +24,7 @@ import services.interfaces.ITemplateService;
  *
  * @author oneadmin
  */
-public class TCPServer  {
+public class TCPServer implements Runnable {
 
     static String clientSentence;
     static String capitalizedSentence;
@@ -42,7 +42,7 @@ public class TCPServer  {
         while (isListening) {
             ServerSocket welcomeSocket;
             try {
-                System.out.println("Listening on port 6789");
+                System.out.println("Listening on port 6789...");
                 welcomeSocket = new ServerSocket(6789);
                 connectionSocket = welcomeSocket.accept();
                 if (connectionSocket.isConnected()) {
@@ -76,5 +76,10 @@ public class TCPServer  {
 
         }
 
+    }
+
+    @Override
+    public void run() {
+        listen();
     }
 }
