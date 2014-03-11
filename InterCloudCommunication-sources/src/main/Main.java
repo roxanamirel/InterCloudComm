@@ -17,17 +17,16 @@ import tcp.TCPServer;
 public class Main {
 
     public static void main(String[] args) {
-        
         TCPServer server = new TCPServer();
-        server.setDaemon(true);
-        server.start();
+       Thread t = new Thread(server);
+        t.start();
         
         
         
         VirtualMachinePool virtualMachinePool
                 = new VirtualMachinePool(OpenNebulaClient.getInstance());
         virtualMachinePool.info();
-        VirtualMachine virtualMachine = virtualMachinePool.getById(455);
+        VirtualMachine virtualMachine = virtualMachinePool.getById(457);
         String imagePath = "/var/lib/one/migratedImages/";
         Puppeteer puppeteer = new Puppeteer(
                 "oneadmin",

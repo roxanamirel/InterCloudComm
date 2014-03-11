@@ -24,7 +24,7 @@ import services.interfaces.ITemplateService;
  *
  * @author oneadmin
  */
-public class TCPServer extends Thread {
+public class TCPServer  {
 
     static String clientSentence;
     static String capitalizedSentence;
@@ -34,12 +34,6 @@ public class TCPServer extends Thread {
         listen();
     }
 
-    @Override
-    public void run() {
-        while (true) {
-            listen();
-        }
-    }
 
     public static void listen() {
         TemplateModel tm = null;
